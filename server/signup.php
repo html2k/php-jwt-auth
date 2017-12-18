@@ -21,7 +21,7 @@ if(
 
   $response = array();
 
-	if(
+  if(
     $pass == $repass
   ) {
 

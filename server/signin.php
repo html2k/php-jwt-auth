@@ -11,7 +11,7 @@ if(
   isset($_POST['pass'])
 ) {
 
-	$user = $_POST['user'];
+  $user = $_POST['user'];
   $pass = $_POST['pass'];
   $safepass = safepass($user, $pass, SALT_1, SALT_2);
   
@@ -22,7 +22,7 @@ if(
   $result = $connect->query($query) or die($connect->error);
   $row = $result->fetch_assoc();
 
-	if(
+  if(
     $user == $row['user'] &&
     $safepass == $row['pass']
   ) {

@@ -1,6 +1,6 @@
 <?php
 class JWT {
-	public static function decode($jwt, $key = null, $verify = true) {
+  public static function decode($jwt, $key = null, $verify = true) {
     $tks = explode('.', $jwt);
     if(count($tks) != 3) throw new UnexpectedValueException('Wrong number of segments');
     list($headb64, $bodyb64, $cryptob64) = $tks;
@@ -12,7 +12,7 @@ class JWT {
       if($sig != JWT::sign("$headb64.$bodyb64", $key, $header->alg)) throw new UnexpectedValueException('Signature verification failed');
     }
     return $payload;
-	}
+  }
 
   public static function encode($payload, $key, $algo = 'HS256') {
     $header = array('typ' => 'JWT', 'alg' => $algo);
@@ -28,7 +28,7 @@ class JWT {
     return implode('.', $segments);
   }
 
-	public static function sign($msg, $key, $method = 'HS256') {
+  public static function sign($msg, $key, $method = 'HS256') {
     $methods = array(
       'HS256' => 'sha256',
       'HS384' => 'sha384',
@@ -36,9 +36,9 @@ class JWT {
     );
     if(empty($methods[$method])) throw new DomainException('Algorithm not supported');
     return hash_hmac($methods[$method], $msg, $key, true);
-	}
+  }
 
-	public static function jsonDecode($input) {
+  public static function jsonDecode($input) {
 		$obj = json_decode($input);
     if(function_exists('json_last_error') && $errno = json_last_error()) {
       JWT::_handleJsonError($errno);
@@ -46,9 +46,9 @@ class JWT {
       throw new DomainException('Null result with non-null input');
     }
 		return $obj;
-	}
+  }
 
-	public static function jsonEncode($input) {
+  public static function jsonEncode($input) {
     $json = json_encode($input);
     if(function_exists('json_last_error') && $errno = json_last_error()) {
       JWT::_handleJsonError($errno);
@@ -56,16 +56,16 @@ class JWT {
       throw new DomainException('Null result with non-null input');
     }
     return $json;
-	}
+  }
 
-	public static function urlsafeB64Decode($input) {
+  public static function urlsafeB64Decode($input) {
     $remainder = strlen($input) % 4;
     if ($remainder) {
       $padlen = 4 - $remainder;
       $input .= str_repeat('=', $padlen);
     }
     return base64_decode(strtr($input, '-_', '+/'));
-	}
+  }
 
   public static function urlsafeB64Encode($input) {
     return str_replace('=', '', strtr(base64_encode($input), '+/', '-_'));
