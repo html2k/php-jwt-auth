@@ -3,7 +3,7 @@ include('../config.php');
 include('jwt.php');
 
 function safepass($user, $pass, $salt_1, $salt_2) {
-  return hash('sha512', 'lily' . $user . $salt_1 . $pass . $salt_2);
+  return hash('sha512', 'jwt' . $user . $salt_1 . $pass . $salt_2);
 }
 
 if(
@@ -41,7 +41,7 @@ if(
       );
   
       $jwt = JWT::encode($payload, JWT_SECRET);
-  
+
       $response['status'] = true;
       $response['jwt'] = array(
         'payload' => $payload,
@@ -52,14 +52,14 @@ if(
       echo $connect->error;
     }
 
-	} else {
-		$response['status'] = false;
-		$response['payload'] = array('message' => 'Your passwords doesnt match.');
-	}
+  } else {
+    $response['status'] = false;
+    $response['payload'] = array('message' => 'Your passwords doesnt match.');
+  }
 
 } else {
-	$response['status'] = false;
-	$response['payload'] = array('message' => 'username & password is required');
+  $response['status'] = false;
+  $response['payload'] = array('message' => 'username & password is required');
 }
 
 header("Content-Type: application/json");

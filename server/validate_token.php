@@ -12,29 +12,28 @@ if(
 		$token = $_SERVER['HTTP_X_ACCESS_TOKEN'];
 		$jwt_payload = JWT::decode($token, JWT_SECRET, JWT_SIGNING_ALG);
 		
-		$newToken = $jwt_payload;
-		$newToken->iat = time();
-		$newToken->exp = time()+JWT_TOKEN_LIFETIME;
+    $new_token = $jwt_payload;
+    $new_token->iat = time();
+    $new_token->exp = time()+JWT_TOKEN_LIFETIME;
+    $new_token = JWT::encode($new_token, JWT_SECRET);
 
-		$newToken = JWT::encode($newToken, JWT_SECRET);
-
-		$payload = array(
-			'payload' => $jwt_payload,
-			'token' => $newToken
+    $payload = array(
+      'payload' => $jwt_payload,
+      'token' => $new_token
     );
 
 	} catch(\Exception $e) {
-		$response['status'] = false;
-		$response['payload'] = ['message' => $e->getMessage()];
-		header("Content-Type: application/json");
-		echo json_encode($response);
-		exit();
+    $response['status'] = false;
+    $response['payload'] = ['message' => $e->getMessage()];
+    header("Content-Type: application/json");
+    echo json_encode($response);
+    exit();
   }
   
 } else {
-	$response['status'] = false;
-	$response['payload'] = ['message' => 'token is required'];
-	header("Content-Type: application/json");
-	echo json_encode($response);
-	exit();
+  $response['status'] = false;
+  $response['payload'] = ['message' => 'token is required'];
+  header("Content-Type: application/json");
+  echo json_encode($response);
+  exit();
 }

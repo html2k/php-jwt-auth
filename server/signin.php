@@ -3,7 +3,7 @@ include('../config.php');
 include('jwt.php');
 
 function safepass($user, $pass, $salt_1, $salt_2) {
-  return hash('sha512', 'lily' . $user . $salt_1 . $pass . $salt_2);
+  return hash('sha512', 'jwt' . $user . $salt_1 . $pass . $salt_2);
 }
 
 if(
@@ -27,28 +27,28 @@ if(
     $safepass == $row['pass']
   ) {
 
-		$payload = array(
-			'user' => $user,
-			'iat' => time(),
-			'exp' => time() + JWT_TOKEN_LIFETIME
+    $payload = array(
+      'user' => $user,
+      'iat' => time(),
+      'exp' => time() + JWT_TOKEN_LIFETIME
     );
 
-		$jwt = JWT::encode($payload, JWT_SECRET);
+    $jwt = JWT::encode($payload, JWT_SECRET);
 
-		$response['status'] = true;
-		$response['jwt'] = array(
-			'payload' => $payload,
-			'token' => $jwt
+    $response['status'] = true;
+    $response['jwt'] = array(
+      'payload' => $payload,
+      'token' => $jwt
     );
 
-	} else {
-		$response['status'] = false;
-		$response['payload'] = array('message' => 'invalid username and password');
-	}
+  } else {
+    $response['status'] = false;
+    $response['payload'] = array('message' => 'invalid username and password');
+  }
 
 } else {
-	$response['status'] = false;
-	$response['payload'] = array('message' => 'username & password is required');
+  $response['status'] = false;
+  $response['payload'] = array('message' => 'username & password is required');
 }
 
 header("Content-Type: application/json");
