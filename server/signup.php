@@ -49,7 +49,8 @@ if(
       );
 
     } else {
-      echo $connect->error;
+      $response['status'] = false;
+      $response['payload'] = array('message' => $connect->error;);
     }
 
 	} else {
@@ -59,8 +60,10 @@ if(
 
 } else {
 	$response['status'] = false;
-	$response['payload'] = array('message' => 'username & password is required');
+	$response['payload'] = array('message' => 'Username & password is required');
 }
 
 header("Content-Type: application/json");
 echo json_encode($response);
+
+$connect->close();
