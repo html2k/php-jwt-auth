@@ -1,5 +1,4 @@
 <?php
-include('../config.php');
 include('jwt.php');
 include('validate_token.php');
 

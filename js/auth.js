@@ -1,58 +1,49 @@
+'use strict'
+
+import { Http } from './utils/index.js'
+
 export { Auth }
 
 var Auth = {
 
   SignIn: (user, pass) => {
 
-    var xhr = new XMLHttpRequest()
-
-    xhr.open('POST', 'server/signin.php')
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-
-    xhr.onload = function() {
-      if(xhr.status === 200 && xhr.readyState === 4) {
-
-        var response = JSON.parse(this.responseText)
-
-        if(response.status) {
-          sessionStorage.setItem('token', response.jwt.token)
-          location.href = 'dashboard.html'
-        } else {
-          console.log(response.payload.message)
-        }
-
-      } else if(xhr.status !== 200) {
-        console.log('error')
+    new Http({
+      method: 'POST',
+      url: 'server/signin.php',
+      data: { user, pass },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }).then(data => {
+      if(data.status) {
+        sessionStorage.setItem('token', data.jwt.token)
+        location.href = 'dashboard.html'
+      } else {
+        console.log(data.payload.message)
       }
-    }
+    }).catch(err => {
+      console.log(err)
+    })
 
-    xhr.send(encodeURI('user=' + user + '&pass=' + pass))
   },
 
   SignUp: (email, user, pass, repass) => {
-    var xhr = new XMLHttpRequest()
 
-    xhr.open('POST', 'server/signup.php')
-    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-
-    xhr.onload = function() {
-      if(xhr.status === 200 && xhr.readyState === 4) {
-
-        var response = JSON.parse(this.responseText)
-
-        if(response.status) {
-          sessionStorage.setItem('token', response.jwt.token)
-          location.href = 'dashboard.html'
-        } else {
-          console.log(response.payload.message)
-        }
-
-      } else if(xhr.status !== 200) {
-        console.log('error')
+    new Http({
+      method: 'POST',
+      url: 'server/signup.php',
+      data: { email, user, pass, repass },
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
+    }).then(data => {
+      if(data.status) {
+        sessionStorage.setItem('token', data.jwt.token)
+        location.href = 'dashboard.html'
+      } else {
+        console.log(data.payload.message)
       }
-    }
+    }).catch(err => {
+      console.log(err)
+    })
 
-    xhr.send(encodeURI('email=' + email + '&user=' + user + '&pass=' + pass + '&repass=' + repass))
   },
 
   SignOut: () => {
