@@ -11,3 +11,7 @@ define('SALT_2', 'iF>P(9k7>]Uk@04U9sQAe3H|F/rHSVeGi#%k}==/V|!tzFD2H/FV$,lC*UwW2X
 define('JWT_SECRET', '_/QNgj*DDF|AA:b[)q5eLd-+grM-x6b8L.gO#/nGny<1(:Ls%&E%|wniv?0>By+X');
 define('JWT_SIGNING_ALG', 'HS256');
 define('JWT_TOKEN_LIFETIME', 3600);
+
+function safepass($user, $pass) {
+  return hash('sha512', PREFIX . $user . SALT_1 . $pass . SALT_2);
+}

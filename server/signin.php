@@ -1,19 +1,12 @@
 <?php 
-include('../config.php');
-include('jwt.php');
+require __DIR__ . './../config.php';
+require __DIR__ . '/jwt.php';
 
-function safepass($user, $pass, $salt_1, $salt_2) {
-  return hash('sha512', 'lily' . $user . $salt_1 . $pass . $salt_2);
-}
-
-if(
-  isset($_POST['user']) &&
-  isset($_POST['pass'])
-) {
+if( isset($_POST['user']) && isset($_POST['pass']) ) {
 
 	$user = $_POST['user'];
   $pass = $_POST['pass'];
-  $safepass = safepass($user, $pass, SALT_1, SALT_2);
+  $safepass = safepass($user, $pass);
   
   $response = array();
 
