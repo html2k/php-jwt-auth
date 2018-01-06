@@ -1,13 +1,26 @@
+import { routes } from './routes.js'
+import { nojs, ready } from './utils/index.js'
 import { topbar, wrapper } from './modules/index.js'
 
-export const app = Vue.component('app', {
-  components: {
-    topbar,
-    wrapper
-  },
-  template: `
-  <div class="app">
-    <topbar />
-    <wrapper />
-  </div>`
+nojs() // Is JavaScript Enabled?
+
+ready(() => {
+  Vue.use(VueRouter)
+
+  new Vue({
+    el: '#app',
+    components: { topbar, wrapper },
+    router: new VueRouter({ routes }),
+    beforeMount() {
+      sessionStorage.getItem('token') ?
+        this.$router.push('/dashboard') :
+        this.$router.push('/')
+    },
+    template: `
+      <div class="app">
+        <topbar />
+        <wrapper />
+      </div>
+    `
+  })
 })

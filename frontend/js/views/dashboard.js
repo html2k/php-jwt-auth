@@ -1,9 +1,8 @@
 import { signout } from './auth/signout.js'
 
 export const dashboard = Vue.component('dashboard', {
-  components: {
-    signout
-  },
+  beforeMount() { if(!sessionStorage.getItem('token')) this.$router.push('/') },
+  components: { signout },
   methods: {
     signOut(e) {
       e.preventDefault()
