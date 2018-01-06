@@ -13,17 +13,19 @@ if(
   $insert = "INSERT INTO `".PREFIX."foo` (`id`, `data`, `added`)
   VALUES('', '".$data."', '".$now."')";
 
-  if($connect->query($insert) === TRUE) {
-
+  if($connect->query($insert)) {
     $response = array('data' => $data);
-    header("Content-Type: application/json");
-    echo json_encode($response);
-
   } else {
-    echo $connect->error;
+    $response['status'] = false;
+    $response['payload'] = array('message' => $connect->error);
   }
 
 } else {
 	$response['status'] = false;
 	$response['payload'] = array('message' => 'You must add some data');
 }
+
+header("Content-Type: application/json");
+echo json_encode($response);
+
+$connect->close();

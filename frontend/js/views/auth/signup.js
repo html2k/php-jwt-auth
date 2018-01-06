@@ -18,7 +18,7 @@ export const signup = Vue.component('signup', {
       if(email.length && user.length && pass.length) {
         new Http({
           method: 'POST',
-          url: '../backend/signup.php',
+          url: '../backend/auth/signup.php',
           data: { email, user, pass },
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(data => {

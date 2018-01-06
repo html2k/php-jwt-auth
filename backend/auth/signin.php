@@ -1,6 +1,6 @@
 <?php 
-require __DIR__ . '/config.php';
-require __DIR__ . '/jwt.php';
+require __DIR__ . '/../config.php';
+require __DIR__ . '/../jwt/jwt.php';
 
 if( isset($_POST['user']) && isset($_POST['pass']) ) {
 

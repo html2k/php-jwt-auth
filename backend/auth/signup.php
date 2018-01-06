@@ -1,5 +1,5 @@
 <?php 
-require __DIR__ . '/config.php';
+require __DIR__ . '/../config.php';
 
 if( isset($_POST['email']) && isset($_POST['user']) && isset($_POST['pass']) ) {
   

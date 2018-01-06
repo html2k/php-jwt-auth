@@ -17,7 +17,7 @@ export const signin = Vue.component('signin', {
       if(user.length && pass.length) {
         new Http({
           method: 'POST',
-          url: '../backend/signin.php',
+          url: '../backend/auth/signin.php',
           data: { user, pass },
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(data => {
