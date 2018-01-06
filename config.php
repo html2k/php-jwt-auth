@@ -2,12 +2,12 @@
 define('DBHOST', 'localhost');
 define('DBUSER', 'root');
 define('DBPASS', 'root');
-define('DBNAME', 'test');
+define('DBNAME', 'jwt');
 
-define('PREFIX', 'li-');
-define('SALT_1', '3282a1d6aad935765dd2e0a463692935f4d1aaeb');
-define('SALT_2', '4f75e81fe99ea5a0e15ca8e2cd37201693ead2ab');
+define('PREFIX', 'jwt-');
+define('SALT_1', '}!6?|yn/TslJ&{}=@zY(!.+<Kh0J[$c9Vm{=#_#Q{nDovF|XE)-O~7E(InYss.y@');
+define('SALT_2', 'iF>P(9k7>]Uk@04U9sQAe3H|F/rHSVeGi#%k}==/V|!tzFD2H/FV$,lC*UwW2XG|');
 
-define('JWT_SECRET', 'U5%Qr1[`2d_uE0<@f>0_k?wPUZuS^/7MFo]aT+{:C[|3Dc+-XJ>6~SFKmk3]oYg4');
+define('JWT_SECRET', '_/QNgj*DDF|AA:b[)q5eLd-+grM-x6b8L.gO#/nGny<1(:Ls%&E%|wniv?0>By+X');
 define('JWT_SIGNING_ALG', 'HS256');
 define('JWT_TOKEN_LIFETIME', 3600);
