@@ -52,6 +52,8 @@ if( isset($_POST['email']) && isset($_POST['pass']) ) {
       $response['payload'] = array('message' => 'invalid username and password');
     }
 
+    $connect->close();
+
   } else {
     $response['status'] = false;
     $response['payload'] = array('message' => 'you must confirm');
@@ -64,5 +66,3 @@ if( isset($_POST['email']) && isset($_POST['pass']) ) {
 
 header("Content-Type: application/json");
 echo json_encode($response);
-
-$connect->close();

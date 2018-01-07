@@ -20,7 +20,7 @@ if( isset($_POST['email']) ) {
   if($connect->query($update)) {
     $response['status'] = true;
     $response['payload'] = array('message' => 'password updated');
-    
+
     $subject = 'Recover your account';
     $message = 'Hi, your new password is: ' . $pass;
     $headers = 'From: webmaster@example.com' . "\r\n" .
@@ -33,6 +33,8 @@ if( isset($_POST['email']) ) {
     $response['payload'] = array('message' => $connect->error);
   }
 
+  $connect->close();
+
 } else {
   $response['status'] = false;
   $response['payload'] = array('message' => 'Confirm key not matching any id');
@@ -40,5 +42,3 @@ if( isset($_POST['email']) ) {
 
 header("Content-Type: application/json");
 echo json_encode($response);
-
-$connect->close();

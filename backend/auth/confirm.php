@@ -17,6 +17,8 @@ if( isset($_POST['confirm']) ) {
     $response['payload'] = array('message' => $connect->error);
   }
 
+  $connect->close();
+
 } else {
   $response['status'] = false;
   $response['payload'] = array('message' => 'Confirm key not matching any id');
@@ -24,5 +26,3 @@ if( isset($_POST['confirm']) ) {
 
 header("Content-Type: application/json");
 echo json_encode($response);
-
-$connect->close();
