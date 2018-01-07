@@ -5,13 +5,14 @@ if( isset($_POST['confirm']) ) {
   
   $connect = new mysqli(DBHOST, DBUSER, DBPASS, DBNAME);
 
-  $confirm = $_POST['confirm'];
+  $confirm = $connect->real_escape_string($_POST['confirm']);
   $ts = date('U');
 
   $update = "UPDATE `".PREFIX."users` SET active='true', lastseen='$ts' WHERE confirm='$confirm'";
 
   if($connect->query($update)) {
     $response['status'] = true;
+    $response['payload'] = array('message' => 'account confirmed');
   } else {
     $response['status'] = false;
     $response['payload'] = array('message' => $connect->error);
