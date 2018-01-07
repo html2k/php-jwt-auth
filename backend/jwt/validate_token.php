@@ -12,15 +12,15 @@ if(
 		$token = $_SERVER['HTTP_X_ACCESS_TOKEN'];
 		$jwt_payload = JWT::decode($token, JWT_SECRET, JWT_SIGNING_ALG);
 		
-		$newToken = $jwt_payload;
-		$newToken->iat = time();
-		$newToken->exp = time()+JWT_TOKEN_LIFETIME;
+		$new_token = $jwt_payload;
+		$new_token->iat = time();
+		$new_token->exp = time()+JWT_TOKEN_LIFETIME;
 
-		$newToken = JWT::encode($newToken, JWT_SECRET);
+		$new_token = JWT::encode($new_token, JWT_SECRET);
 
 		$payload = array(
 			'payload' => $jwt_payload,
-			'token' => $newToken
+			'token' => $new_token
     );
 
 	} catch(\Exception $e) {

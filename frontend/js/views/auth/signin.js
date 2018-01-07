@@ -3,7 +3,7 @@ import { Http } from './../../utils/index.js'
 export const signin = Vue.component('signin', {
   data() {
     return {
-      user: '',
+      email: '',
       pass: ''
     }
   },
@@ -11,14 +11,14 @@ export const signin = Vue.component('signin', {
     signIn(e) {
       e.preventDefault()
       let that = this,
-          user = this.user,
+          email = this.email,
           pass = this.pass
 
-      if(user.length && pass.length) {
+      if(email.length && pass.length) {
         new Http({
           method: 'POST',
           url: '../backend/auth/signin.php',
-          data: { user, pass },
+          data: { email, pass },
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(data => {
           if(data.status) {
@@ -39,8 +39,8 @@ export const signin = Vue.component('signin', {
     <h2>Sign In</h2>
     
     <form class="auth-form sign-in">
-      <input type="text" v-model="user" />
-      <input type="password" v-model="pass" />
+      <input type="text" v-model="email" placeholder="email" />
+      <input type="password" v-model="pass" placeholder="pass" />
 
       <input type="submit" value="Sign In" class="btn" v-on:click="signIn" /> or 
       <router-link exact to="/recover">Recover</router-link>

@@ -6,5 +6,14 @@ export const signout = Vue.component('signout', {
       this.$router.push('/')
     }
   },
-  template: `<button v-on:click="signOut">Sign out</button>`
+  template: `
+    <div>
+      <button
+        class="btn"
+        v-on:click="signOut"
+      >
+      Sign out
+      </button>
+    </div>
+  `
 })

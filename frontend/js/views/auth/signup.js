@@ -1,10 +1,9 @@
-import { Http } from './../../utils/index.js'
+import { Http, rand_str } from './../../utils/index.js'
 
 export const signup = Vue.component('signup', {
   data() {
     return {
       email: '',
-      user: '',
       pass: ''
     }
   },
@@ -12,18 +11,18 @@ export const signup = Vue.component('signup', {
     signUp(e) {
       e.preventDefault()
       let email = this.email,
-          user = this.user,
-          pass = this.pass
+          pass = this.pass,
+          confirm = rand_str(64)
 
-      if(email.length && user.length && pass.length) {
+      if(email.length && pass.length) {
         new Http({
           method: 'POST',
           url: '../backend/auth/signup.php',
-          data: { email, user, pass },
+          data: { email, pass, confirm },
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' }
         }).then(data => {
           if(data.status) {
-            this.$router.push('/')
+            this.$router.push('/confirm')
           } else {
             console.log(data.payload.message)
           }
@@ -39,7 +38,6 @@ export const signup = Vue.component('signup', {
 
     <form class="auth-form sign-up">
       <input type="email" v-model="email" placeholder="Email" />
-      <input type="text" v-model="user" placeholder="Username" />
       <input type="password" v-model="pass" placeholder="Password" />
 
       <input type="submit" value="Sign Up" class="btn" v-on:click="signUp" /> or

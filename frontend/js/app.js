@@ -1,6 +1,6 @@
-import { routes } from './routes.js'
 import { nojs, ready } from './utils/index.js'
 import { topbar, wrapper } from './modules/index.js'
+import { routes } from './routes.js'
 
 nojs() // Is JavaScript Enabled?
 
