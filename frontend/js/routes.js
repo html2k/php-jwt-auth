@@ -1,5 +1,6 @@
 import { home } from './views/home.js'
 import { dashboard } from './views/dashboard.js'
+import { profile } from './views/profile.js'
 import { signup } from './views/auth/signup.js'
 import { signin }  from './views/auth/signin.js'
 import { recover } from './views/auth/recover.js'
@@ -11,6 +12,9 @@ export const routes =  [{
 }, {
   path: '/dashboard',
   component: dashboard
+}, {
+  path: '/profile',
+  component: profile
 }, {
   path: '/signup',
   component: signup

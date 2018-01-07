@@ -19,13 +19,13 @@ if( isset($_POST['email']) && isset($_POST['pass']) ) {
 
   if($active == 'true') {
 
-    $safepass = safepass($email, $pass, $confirm);
+    $safepass = safepass($pass, $confirm);
     $query = "SELECT * FROM `".PREFIX."users` WHERE email='$email' AND pass='$safepass'";
     $result = $connect->query($query) or die($connect->error);
     $row = $result->fetch_assoc();
 
     if(
-      $user == $row['user'] &&
+      $email == $row['email'] &&
       $safepass == $row['pass']
     ) {
 

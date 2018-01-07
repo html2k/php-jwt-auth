@@ -13,14 +13,21 @@ if( isset($_POST['email']) ) {
   $confirm = $check_row['confirm'];
   $ts = date('U');
   $pass = substr(str_shuffle(str_repeat($x = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ', ceil(10 / strlen($x)) )), 1, 10);
-  $safepass = safepass($email, $pass, $confirm);
+  $safepass = safepass($pass, $confirm);
 
   $update = "UPDATE `".PREFIX."users` SET pass='$safepass', lastseen='$ts' WHERE email='$email'";
 
   if($connect->query($update)) {
     $response['status'] = true;
     $response['payload'] = array('message' => 'password updated');
-    // TODO: send email with $pass
+    
+    $subject = 'Recover your account';
+    $message = 'Hi, your new password is: ' . $pass;
+    $headers = 'From: webmaster@example.com' . "\r\n" .
+               'Reply-To: webmaster@example.com' . "\r\n" .
+               'X-Mailer: PHP/' . phpversion();
+
+    mail($email, $subject, $message, $headers);
   } else {
     $response['status'] = false;
     $response['payload'] = array('message' => $connect->error);
